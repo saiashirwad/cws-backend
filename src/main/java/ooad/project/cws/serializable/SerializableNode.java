@@ -6,7 +6,7 @@ import ooad.project.cws.model.User;
 public class SerializableNode {
     private Long id;
     private String text;
-    private SerializableUser creator;
+    private String creatorName;
 
 	public Long getId()
 	{
@@ -28,22 +28,27 @@ public class SerializableNode {
 		this.text = text;
 	}
 
-	public SerializableUser getCreator()
+	public String getCreatorName()
 	{
-		return this.creator;
+		return this.creatorName;
 	}
 
-	public void setCreator(SerializableUser creator)
+	public void setCreatorName(String creatorName)
 	{
-		this.creator = creator;
+		this.creatorName = creatorName;
 	}
 
 
     // Didn't want to bring in the NodeRepository to find me
     // the creator name. Much better to use the setCreator method wherever 
     // this object is being instantiated, methinks.
-    public SerializableNode(Long id, String text) {
+    public SerializableNode(Long id, String text, String creatorName) {
         this.id = id;
         this.text = text;
+        this.creatorName = creatorName;
+    }
+
+    public SerializableNode() {
+
     }
 }

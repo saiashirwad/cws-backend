@@ -15,6 +15,7 @@ import ooad.project.cws.relationship.Parenthood;
 import ooad.project.cws.repository.NodeRepository;
 import ooad.project.cws.repository.ParenthoodRepository;
 import ooad.project.cws.repository.UserRepository;
+import ooad.project.cws.serializable.SerializableNode;
 import ooad.project.cws.types.CreateNodeType;
 
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,13 +41,13 @@ public class NodeController {
     }
 
     @RequestMapping(value = "/{id}", method=RequestMethod.GET)
-    public Optional<Node> getNode(@PathVariable Long id) {
+    public SerializableNode getNode(@PathVariable Long id) {
         Optional<Node> node = nodeRepository.findById(id);
         if (node.isPresent()) {
-            return node;
+            return node.get().getSerializableNode();
         }
         // Check to make sure all hell does not break loose!!!
-        return node;
+        return new SerializableNode();
     }
 
 
@@ -94,6 +95,7 @@ public class NodeController {
             newNode.setParent(parent.get());
             newNode.setParentId(parentId);
             newNode.setCreator(creator);
+            newNode.setCreatorname(creatorName);
         }
 
         else if (creator != null) {
@@ -102,6 +104,7 @@ public class NodeController {
             //  allow them anyway.
             newNode.setCreator(creator);
             newNode.setParentId(Long.valueOf(-1));
+            newNode.setCreatorname(creatorName);
         }
 
         else {

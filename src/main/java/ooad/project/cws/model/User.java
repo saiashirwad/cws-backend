@@ -89,7 +89,7 @@ public class User {
 	}
 
 	public SerializableUser getSerializableUser() {
-		return new SerializableUser(this.id, this.name)
+		return new SerializableUser(this.id, this.name);
 	}
 	 
 

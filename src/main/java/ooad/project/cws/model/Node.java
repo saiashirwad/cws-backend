@@ -11,8 +11,10 @@ import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import ooad.project.cws.relationship.Parenthood;
+import ooad.project.cws.repository.NodeRepository;
 import ooad.project.cws.serializable.SerializableNode;
 
 @NodeEntity
@@ -22,13 +24,58 @@ public class Node {
     @GeneratedValue
     private Long id;
 
+
+	public Long getId()
+	{
+		return this.id;
+	}
+
+	public void setId(Long id)
+	{
+		this.id = id;
+	}
+
     private String text;
+
+
+	public String getText()
+	{
+		return this.text;
+	}
+
+	public void setText(String text)
+	{
+		this.text = text;
+	}
     private Long parentId;
 
     @JsonIgnore
     @Relationship(type = "CREATED_BY", direction = Relationship.OUTGOING)
     private User creator;
 
+
+	public User getCreator()
+	{
+		return this.creator;
+	}
+
+	public void setCreator(User creator)
+	{
+		this.creator = creator;
+	}
+
+    private String creatorName;
+
+
+	public String getCreatorname()
+	{
+		return this.creatorName;
+	}
+
+	public void setCreatorname(String creatorName)
+	{
+		this.creatorName = creatorName;
+	}
     // Still here to remind myself of my stupididy; ugh
     // @JsonIgnore
     // @Relationship(type = "PARENT_OF", direction = Relationship.INCOMING)
@@ -62,9 +109,6 @@ public class Node {
         this.text = text;
     }
 
-    public void setCreator(User creator) {
-        this.creator = creator;
-    }
 
     // public void setParent(Optional<Node> parent) {
     //     this.parent = parent;
@@ -82,9 +126,10 @@ public class Node {
         this.parentId = parentId;
     }
 
+    @JsonIgnore
     public SerializableNode getSerializableNode() {
-        return new SerializableNode(this.id, this.text);
+
+        return new SerializableNode(this.id, this.text, this.creatorName);
     }
 
-    
-
+}
