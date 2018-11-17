@@ -8,6 +8,8 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
+import ooad.project.cws.serializable.SerializableUser;
+
 @NodeEntity
 public class User {
     @Id
@@ -84,6 +86,10 @@ public class User {
 
     public User() {
 
+	}
+
+	public SerializableUser getSerializableUser() {
+		return new SerializableUser(this.id, this.name)
 	}
 	 
 

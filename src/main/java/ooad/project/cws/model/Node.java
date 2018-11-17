@@ -13,6 +13,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
 import ooad.project.cws.relationship.Parenthood;
+import ooad.project.cws.serializable.SerializableNode;
 
 @NodeEntity
 public class Node {
@@ -81,6 +82,9 @@ public class Node {
         this.parentId = parentId;
     }
 
+    public SerializableNode getSerializableNode() {
+        return new SerializableNode(this.id, this.text);
+    }
+
     
 
-}
