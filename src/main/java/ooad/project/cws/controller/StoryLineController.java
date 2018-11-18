@@ -3,6 +3,7 @@ package ooad.project.cws.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +35,7 @@ public class StoryLineController {
     @Autowired
     StoryLineService storyLineService;
 
+    // @CrossOrigin(origins="http://localhost:8081")
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
     public StoryLine getStoryLine(@PathVariable Long id) {
         // Optional<StoryLine> storyLine = storyLineRepository.findById(id);
@@ -45,4 +47,17 @@ public class StoryLineController {
         Node node = nodeRepository.fetchNodeById(id);
         return storyLineService.getStoryLine(node);
     }
+
+    // @RequestMapping(value="/test/{id}", method=RequestMethod.GET)
+    // public StoryLine testRedis(@PathVariable Long id) {
+    //     Optional<StoryLine> sl =  storyLineRepository.findById(id);
+    //     if (sl.isPresent()) {
+    //         return sl.get();
+    //     }
+    //     else {
+    //         return null;
+    //     }
+    // }
+
+
 }
