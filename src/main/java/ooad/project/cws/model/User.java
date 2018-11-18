@@ -3,6 +3,8 @@ package ooad.project.cws.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -38,6 +40,7 @@ public class User {
 		this.bio = bio;
 	}
 
+	@JsonIgnore
     private String password;
     private String email;
 
@@ -53,6 +56,7 @@ public class User {
 
     private Set<String> interests;
 
+	@JsonIgnore
     @Relationship(type = "FRIENDS_WITH", direction=Relationship.UNDIRECTED)
 	private Set<User> friends;
 	
@@ -88,6 +92,7 @@ public class User {
 
 	}
 
+	@JsonIgnore
 	public SerializableUser getSerializableUser() {
 		return new SerializableUser(this.id, this.name);
 	}

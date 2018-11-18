@@ -47,7 +47,7 @@ public class NodeController {
             return node.get().getSerializableNode();
         }
         // Check to make sure all hell does not break loose!!!
-        return new SerializableNode();
+        return null;
     }
 
 

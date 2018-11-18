@@ -1,8 +1,12 @@
 package ooad.project.cws.controller;
 
+import java.awt.List;
+import java.security.Principal;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +20,7 @@ import ooad.project.cws.repository.PendingFriendshipRepository;
 import ooad.project.cws.repository.UserRepository;
 import ooad.project.cws.service.UserService;
 import ooad.project.cws.types.Dummy;
+import ooad.project.cws.types.EditBioType;
 import ooad.project.cws.types.FriendRequestType;
 import ooad.project.cws.types.NameType;
 
@@ -46,6 +51,50 @@ public class UserController {
 
     @Autowired
     private PendingFriendshipRepository pendingFriendshipRepository;
+
+    @RequestMapping(value="/{name}")
+    public User getUser(@PathVariable String name) {
+        return userRepository.findByName(name);
+    }
+
+    //  Edit user bio
+    @RequestMapping(value="/bio", method=RequestMethod.POST)
+    public Boolean editBio(@RequestBody EditBioType bio, Authentication principal) {
+        System.out.println(principal.getName());
+        System.out.println(bio);
+        try {
+            User user = userRepository.findByName(principal.getName());
+            user.setBio(bio.getBio());
+            userRepository.save(user);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @RequestMapping(value="/email", method=RequestMethod.POST)
+    public Boolean editEmail(@RequestBody EditBioType email, Authentication principal) {
+ 
+        try {
+            User user = userRepository.findByName(principal.getName());
+            user.setEmail(email.getBio());
+            userRepository.save(user);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @RequestMapping(value="/friends", method=RequestMethod.GET)
+    public Iterable<User> getFriends(Authentication principal) {
+        try {
+            // User user = userRepository.findByName(principal.getName());
+            return userRepository.getFriends(principal.getName());
+        }
+        catch (Exception e) {
+            return null;
+        }
+    }
 
     @RequestMapping(method=RequestMethod.GET)
     public Iterable<User> getAll() {
