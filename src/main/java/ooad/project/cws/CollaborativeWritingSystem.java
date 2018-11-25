@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
 public class CollaborativeWritingSystem {
@@ -27,11 +30,6 @@ public class CollaborativeWritingSystem {
         template.setConnectionFactory(jedisConnectionFactory());
         return template;
     }
-
-    // @Bean 
-    // public UserDetailsServiceImpl userDetailsService(UserRepository userRepository) {
-    //     return new UserDetailsServiceImpl(userRepository);
-    // }
 
     public static void main(String[] args) {
         SpringApplication.run(CollaborativeWritingSystem.class, args);

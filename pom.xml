@@ -45,16 +45,6 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-security</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-mail</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-redis</artifactId>
       <scope>compile</scope>
     </dependency>
@@ -63,7 +53,6 @@
       <artifactId>jedis</artifactId>
       <version>2.9.0</version>
     </dependency>
-
   </dependencies>
   <build>
     <plugins>
