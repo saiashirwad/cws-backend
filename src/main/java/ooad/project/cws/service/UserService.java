@@ -1,6 +1,6 @@
 package ooad.project.cws.service;
 
-import javax.mail.internet.MimeMessage;
+// import javax.mail.internet.MimeMessage;
 
 import org.hibernate.validator.internal.util.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +20,17 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    @Autowired JavaMailSender sender;
+    // @Autowired JavaMailSender sender;
 
-    public void sendEmail(String recipient, String textBody, String textTitle, String subject) throws Exception {
-        MimeMessage message = sender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
+    // public void sendEmail(String recipient, String textBody, String textTitle, String subject) throws Exception {
+    //     MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setTo(recipient);
-        helper.setText(String.format("<html><body><h2>%1$s</h2><br><br><br><p>%2$s</p></body></html>", textTitle, textBody), true);
-        helper.setSubject(subject);
+    //     helper.setTo(recipient);
+    //     helper.setText(String.format("<html><body><h2>%1$s</h2><br><br><br><p>%2$s</p></body></html>", textTitle, textBody), true);
+    //     helper.setSubject(subject);
 
-        sender.send(message);
-    }
+    //     sender.send(message);
+    // }
 
     public void createFriendRequest(String sender, String receiver) {
 
