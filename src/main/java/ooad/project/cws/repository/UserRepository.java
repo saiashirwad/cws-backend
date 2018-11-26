@@ -18,4 +18,7 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
     @Query("MATCH (u1:User)-[:FRIENDS_WITH]-(u2:User) WHERE u1.name={0} RETURN u2")
     Iterable<User> getFriends(String name);
 
+    @Query("MATCH (u:User) where u.name CONTAINS {0}")
+    Iterable<User> searchUsers(String searchString);
+
 }

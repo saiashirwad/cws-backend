@@ -8,7 +8,7 @@ import org.neo4j.ogm.annotation.StartNode;
 
 import ooad.project.cws.model.Node;
 
-@RelationshipEntity(type="CHILD_OF")
+@RelationshipEntity(type="PARENT_OF")
 public class Parenthood {
 
     @Id

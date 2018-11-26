@@ -45,7 +45,18 @@ public class StoryLineController {
         // return null;
         
         Node node = nodeRepository.fetchNodeById(id);
-        return storyLineService.getStoryLine(node);
+        if (storyLineRepository.existsById(id)) {
+            Optional<StoryLine> storyLine = storyLineRepository.findById(id);
+            if (storyLine.isPresent()) {
+                return storyLine.get();
+            }
+            else {
+                return null;
+            }
+        }
+        else {
+            return storyLineService.getStoryLine(node);
+        }
     }
 
     // @RequestMapping(value="/test/{id}", method=RequestMethod.GET)

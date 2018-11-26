@@ -80,7 +80,7 @@ public class NodeController {
     // }
 
     @RequestMapping(value="/new", method=RequestMethod.POST) 
-    public Boolean createNode(@RequestBody CreateNodeType node) {
+    public Long createNode(@RequestBody CreateNodeType node) {
         String creatorName = node.getCreator();
         String text = node.getText();
         Long parentId = node.getParentId();
@@ -109,12 +109,22 @@ public class NodeController {
 
         else {
             //  Eh, just return false
-            return false;
+            return null;
         }
 
-        nodeRepository.save(newNode);
+        Node nn = nodeRepository.save(newNode);
 
-        return true;
+        return nn.getId();
+    }
+
+    @RequestMapping(value="/user/{name}", method=RequestMethod.GET)
+    public Iterable<Node> getNodesByUser(@PathVariable("name") String name) {
+        try {
+            return nodeRepository.getNodesByUser(name);
+        }
+        catch (Exception e) {
+            return null;
+        }
     }
 
     

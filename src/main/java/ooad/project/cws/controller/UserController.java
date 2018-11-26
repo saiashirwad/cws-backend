@@ -85,11 +85,16 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value="/friends", method=RequestMethod.GET)
-    public Iterable<User> getFriends(Authentication principal) {
+    @RequestMapping(value="/friends/{name}", method=RequestMethod.GET)
+    public Iterable<User> getFriends(Authentication principal, @PathVariable("name") String name) {
         try {
             // User user = userRepository.findByName(principal.getName());
-            return userRepository.getFriends(principal.getName());
+            if (name.toString().length() == 0) {
+                return userRepository.getFriends(principal.getName());
+            }
+            else {
+                return userRepository.getFriends(name);
+            }
         }
         catch (Exception e) {
             return null;

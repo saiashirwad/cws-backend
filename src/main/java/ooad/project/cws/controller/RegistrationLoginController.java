@@ -23,8 +23,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping(value = "/api/auth")
 public class RegistrationLoginController {
 
+    @Autowired
     private UserService userService;
+
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
     private UserRepository userRepository;
 
     // @Autowired
@@ -54,8 +59,8 @@ public class RegistrationLoginController {
     @PostMapping(value="/register")
     public UserRegisterType register(@RequestBody UserRegisterType user) {
 
-        System.out.println("Here in the register route");
-        
+        System.out.println(user.getEmail() + user.getName());
+
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         User newUser = new User(user.getName(), user.getPassword(), user.getEmail());
         userRepository.save(newUser);
