@@ -92,6 +92,16 @@ public class Node {
     @Relationship(type = "CONTAINED_IN", direction = Relationship.OUTGOING)
     private StoryBoard storyBoard;
 
+    public void setStoryBoard(StoryBoard storyBoard) {
+        this.storyBoard = storyBoard;
+    }
+
+    @JsonIgnore
+    public StoryBoard getStoryBoard() {
+        return this.storyBoard;
+    }
+
+
     @JsonIgnore
     @Relationship(type = "LIKED_BY", direction = Relationship.OUTGOING)
     private Set<User> likers;
