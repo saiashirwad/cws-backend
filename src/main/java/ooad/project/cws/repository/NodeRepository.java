@@ -18,7 +18,7 @@ public interface NodeRepository extends Neo4jRepository<Node, Long> {
     @Query("MATCH (n:Node) WHERE n.creatorName={0} return n")
     Iterable<Node> getNodesByUser(String name);
 
-    @Query("MATCH (n:Node) where n.text CONTAINS {0}")
+    @Query("MATCH (n:Node) where n.text CONTAINS {0} RETURN n")
     Iterable<Node> searchNodes(String searchString);
 
     // @Query(

@@ -60,8 +60,8 @@ public class UserController {
     //  Edit user bio
     @RequestMapping(value="/bio", method=RequestMethod.POST)
     public Boolean editBio(@RequestBody EditBioType bio, Authentication principal) {
-        System.out.println(principal.getName());
-        System.out.println(bio);
+        // System.out.println(principal.getName());
+        System.out.println(bio.getBio());
         try {
             User user = userRepository.findByName(principal.getName());
             user.setBio(bio.getBio());
