@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.neo4j.ogm.exception.core.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,8 @@ import ooad.project.cws.repository.ParenthoodRepository;
 import ooad.project.cws.repository.UserRepository;
 import ooad.project.cws.serializable.SerializableNode;
 import ooad.project.cws.types.CreateNodeType;
+import ooad.project.cws.types.LikeStatusType;
+import ooad.project.cws.types.LikeType;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -117,6 +120,8 @@ public class NodeController {
         return nn.getId();
     }
 
+
+
     @RequestMapping(value="/user/{name}", method=RequestMethod.GET)
     public Iterable<Node> getNodesByUser(@PathVariable("name") String name) {
         try {
@@ -126,6 +131,55 @@ public class NodeController {
             return null;
         }
     }
+
+
+
+    @RequestMapping(value="/like", method=RequestMethod.POST)
+    public LikeStatusType like(@RequestBody LikeType like, Authentication auth) {
+
+        try {
+
+            Long postId = like.getPostId();
+            Optional<Node> n = nodeRepository.findById(postId);
+            String name = auth.getName();
+
+            LikeStatusType status = new LikeStatusType();
+
+            if (n.isPresent()) {
+
+                if (! nodeRepository.isLikedBy(postId, name)) {
+                    
+                    nodeRepository.like(postId, name);
+
+                    status.setStatus("Liked");
+                }
+                else {
+                    nodeRepository.unlike(postId, name);
+
+                    status.setStatus("Unliked");
+                }
+            }
+            else {
+                status.setStatus("Node not present");
+            }
+
+            return status;
+
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+
+    @RequestMapping(value="/like", method=RequestMethod.GET)
+    public Long getLikes(@RequestBody LikeType post) {
+
+        return nodeRepository.likeCount(post.getPostId());
+
+    }
+
 
     
 
